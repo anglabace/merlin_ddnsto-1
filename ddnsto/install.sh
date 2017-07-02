@@ -2,7 +2,7 @@
 
 MODULE=ddnsto
 title="DDNSTO内网穿透"
-VERSION="1.2"
+VERSION="1.4"
 cd /
 rm -rf /koolshare/init.d/S70ddnsto.sh
 cp -rf /tmp/$MODULE/bin/* /koolshare/bin/
@@ -15,6 +15,8 @@ rm -fr /tmp/ddnsto* >/dev/null 2>&1
 killall ${MODULE}
 chmod +x /koolshare/bin/ddnsto
 chmod +x /koolshare/scripts/ddnsto_config.sh
+chmod +x /koolshare/scripts/ddnsto_status.sh
+chmod +x /koolshare/scripts/uninstall_ddnsto.sh
 [ ! -L "/koolshare/init.d/S70ddnsto.sh" ] && ln -sf /koolshare/scripts/ddnsto_config.sh /koolshare/init.d/S70ddnsto.sh
 sleep 1
 dbus set ${MODULE}_version="${VERSION}"
@@ -24,3 +26,11 @@ dbus set softcenter_module_ddnsto_install=1
 dbus set softcenter_module_ddnsto_name=${MODULE}
 dbus set softcenter_module_ddnsto_title="ddnsto内网穿透"
 dbus set softcenter_module_ddnsto_description="ddnsto：koolshare小宝开发的基于http2的快速穿透。"
+str_ddnsto_token=`dbus get ddnsto_token`
+if [[ "${str_ddnsto_token}" == "" ]]; then
+    dbus set ddnsto_enable="0"
+    dbus remove ddnsto_password
+    dbus remove ddnsto_name
+else
+    sh /koolshare/scripts/ddnsto_config.sh
+fi

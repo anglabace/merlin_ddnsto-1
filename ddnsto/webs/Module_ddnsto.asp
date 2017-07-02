@@ -78,7 +78,7 @@
     color: #FFFFFF;
     cursor: default;
 }
-.kp_btn {
+.ddnsto_btn {
     border: 1px solid #222;
     background: linear-gradient(to bottom, #003333  0%, #000000 100%); /* W3C */
     font-size:10pt;
@@ -87,7 +87,7 @@
     border-radius: 5px 5px 5px 5px;
     width:16%;
 }
-.kp_btn:hover {
+.ddnsto_btn:hover {
     border: 1px solid #222;
     background: linear-gradient(to bottom, #27c9c9  0%, #279fd9 100%); /* W3C */
     font-size:10pt;
@@ -110,6 +110,7 @@ return document.getElementById(id);
 
 function init(){
     show_menu(menu_hook);
+    get_status();
     conf_to_obj();
     buildswitch();
     toggle_switch();
@@ -119,6 +120,53 @@ function init(){
         });
 }
 
+function get_status() {
+    $j.ajax({
+        url: 'apply.cgi?current_page=Module_ddnsto.asp&next_page=Module_ddnsto.asp&group_id=&modified=0&action_mode=+Refresh+&action_script=&action_wait=&first_time=&preferred_lang=CN&SystemCmd=ddnsto_status.sh',
+        dataType: 'html',
+        error: function(xhr) {
+            alert("error");
+        },
+        success: function(response) {
+            //alert("success");
+            setTimeout("check_DDNSTO_status();", 1000);
+        }
+    });
+}
+var noChange_status=0;
+var _responseLen;
+function check_DDNSTO_status(){
+    $j.ajax({
+        url: '/res/ddnsto_check.html',
+        dataType: 'html',
+        
+        error: function(xhr){
+            setTimeout("check_DDNSTO_status();", 1000);
+        },
+        success: function(response){
+            var _cmdBtn = document.getElementById("cmdBtn");
+            if(response.search("XU6J03M6") != -1){
+                ddnsto_status = response.replace("XU6J03M6", " ");
+                //alert(ddnsto_status);
+                document.getElementById("status").innerHTML = ddnsto_status;
+                return true;
+            }
+
+            if(_responseLen == response.length){
+                noChange_status++;
+            }else{
+                noChange_status = 0;
+            }
+            if(noChange_status > 100){
+                noChange_status = 0;
+                //refreshpage();
+            }else{
+                setTimeout("check_DDNSTO_status();", 400);
+            }
+            _responseLen = response.length;
+        }
+    });
+}
 function toggle_switch(){
     var rrt = document.getElementById("switch");
     if (document.form.ddnsto_enable.value != "1") {
@@ -205,10 +253,10 @@ function showSSLoadingBar(seconds){
         window.scrollTo(0,0);
 
     disableCheckChangedStatus();
-    
+
     htmlbodyforIE = document.getElementsByTagName("html");  //this both for IE&FF, use "html" but not "body" because <!DOCTYPE html PUBLIC.......>
     htmlbodyforIE[0].style.overflow = "hidden";      //hidden the Y-scrollbar for preventing from user scroll it.
-    
+
     winW_H();
 
     var blockmarginTop;
@@ -217,7 +265,7 @@ function showSSLoadingBar(seconds){
         winWidth = window.innerWidth;
     else if ((document.body) && (document.body.clientWidth))
         winWidth = document.body.clientWidth;
-    
+
     if (window.innerHeight)
         winHeight = window.innerHeight;
     else if ((document.body) && (document.body.clientHeight))
@@ -229,21 +277,19 @@ function showSSLoadingBar(seconds){
     }
 
     if(winWidth >1050){
-    
-        winPadding = (winWidth-1050)/2;    
+        winPadding = (winWidth-1050)/2;
         winWidth = 1105;
         blockmarginLeft= (winWidth*0.3)+winPadding-150;
     }
     else if(winWidth <=1050){
         blockmarginLeft= (winWidth)*0.3+document.body.scrollLeft-160;
-
     }
-    
+
     if(winHeight >660)
         winHeight = 660;
-    
-    blockmarginTop= winHeight*0.3-140        
-    
+
+    blockmarginTop= winHeight*0.3-140
+
     document.getElementById("loadingBarBlock").style.marginTop = blockmarginTop+"px";
     document.getElementById("loadingBarBlock").style.marginLeft = blockmarginLeft+"px";
     document.getElementById("loadingBarBlock").style.width = 770+"px";
@@ -345,8 +391,10 @@ function reload_Soft_Center(){
                                         <div style="margin-left:5px;margin-top:10px;margin-bottom:10px"><img src="/images/New_ui/export/line_export.png"></div>
                                         <div class="SimpleNote">
                                             <li>ddnsto内网穿透是koolshare小宝开发的，支持http2的快速穿透。</li></br>
-                                            <li>你需要先到<a id="gfw_number" href="https://ddns.to" target="_blank"><i><u>【https://ddns.to】</u></i></a>注册帐号，然后在本插件内填入帐号和密码，再登录<a id="gfw_number" href="https://ddns.to" target="_blank"><i><u>【https://ddns.to】</u></i></a>设置穿透。</li></br>
-                                            <li><i>注意：下个版本可能会更换登录方式，请注意查看更新公告。</i></li></br>
+                                            <li><i>很抱歉：为了提升安全性，从此版本开始更换为Token方式认证，原有用户名密码方式将禁用，请重新设置您的插件。</i></li></br>
+                                            <li><i>1、</i>你需要先到【<a id="gfw_number" href="https://ddns.to" target="_blank"><i>https://ddns.to</i></a>】注册帐号（已有帐号的跳过此步）。</li>
+                                            <li><i>2、</i>登录【<a id="gfw_number" href="https://ddns.to" target="_blank"><i>https://ddns.to</i></a>】获取用于连接的Token填入到插件中，启用插件并提交。</li>
+                                            <li><i>3、</i>再登录【<a id="gfw_number" href="https://ddns.to" target="_blank"><i>https://ddns.to</i></a>】设置穿透。</li>
                                         </div>
                                         <table width="100%" border="1" align="center" cellpadding="4" cellspacing="0" bordercolor="#6b8fa3" class="FormTable">
                                             <thead>
@@ -370,26 +418,24 @@ function reload_Soft_Center(){
                                                             </div>
                                                         </label>
                                                     </div>
-                                                    <div id="ddnsto_changelog_show" style="padding-top:5px;margin-left:200px;margin-top:0px;float: left;"><i>DDNSTO版本：<% dbus_get_def("ddnsto_client_version", "未知"); %></i> <a style="margin-left: 10px;" href="https://raw.githubusercontent.com/koolshare/merlin_ddnsto/master/Changelog.txt" target="_blank"><em><u>[ 更新日志 ]</u></em></a></div>
+                                                    <div id="ddnsto_changelog_show" style="padding-top:5px;margin-right:50px;margin-top:0px;float: right;"><a href="https://raw.githubusercontent.com/koolshare/merlin_ddnsto/master/Changelog.txt" target="_blank"><em><u>[ 更新日志 ]</u></em></a></div>
                                                 </td>
                                             </tr>
+                                            <tr id="ddnsto_status">
+                                                <th>运行状态</th>
+                                                <td><span id="status">获取中...</span></td>
+                                            </tr>
                                             <tr>
-                                                <th>ddnsto 账号</th>
+                                                <th>ddnsto Token</th>
                                                 <td>
-                                                    <input style="background-image: none;background-color: #576d73;border:1px solid gray" type="text" class="input_ss_table" id="ddnsto_name" name="ddnsto_name" maxlength="100" value="">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>ddnsto 密码</th>
-                                                    <td>
-                                                        <input type="password" class="input_ss_table" id="ddnsto_password" name="ddnsto_password" maxlength="100" value="" onBlur="switchType(this, false);" onFocus="switchType(this, true);">
+                                                    <input style="width:300px;background-image: none;background-color: #576d73;border:1px solid gray" type="text" class="input_ss_table" id="ddnsto_token" name="ddnsto_token" maxlength="100" value="">
                                                 </td>
                                             </tr>
                                             <tr id="rule_update_switch">
                                                 <th>管理/帮助</th>
                                                 <td>
-                                                    <input class="kp_btn" id="ddnsto_website" style="cursor:pointer;" type="submit" value="ddns.to" />
-                                                    <input class="kp_btn" onclick="openShutManager(this,'NoteBox',false,'关闭使用说明','ddnsto使用说明') " style="cursor:pointer;" type="submit" value="帮助信息" />
+                                                    <input class="ddnsto_btn" id="ddnsto_website" style="cursor:pointer;" type="submit" value="ddns.to" />
+                                                    <input class="ddnsto_btn" onclick="openShutManager(this,'NoteBox',false,'关闭使用说明','ddnsto使用说明') " style="cursor:pointer;" type="submit" value="帮助信息" />
                                                 </td>
                                             </tr>
                                         </table>
