@@ -1,5 +1,7 @@
 Koolshare Asuswrt-Merlin DDNSTO Changelog
 ===========================================
+1.5 ( 2017-07-03 21:00 )
+  - Update    更新客户端证书。
 1.4 ( 2017-07-02 22:15 )
   - Update    更新验证方式为Token，原有用户名密码方式将失效，请登录https://www.ddns.to获取Token并重新设置插件。
   - Update    二进制程序支持自动升级。

@@ -1,14 +1,14 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<!-- version: 1.3 -->
+<!-- version: 1.5 -->
 <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta HTTP-EQUIV="Pragma" CONTENT="no-cache"/>
 <meta HTTP-EQUIV="Expires" CONTENT="-1"/>
 <link rel="shortcut icon" href="images/favicon.png"/>
 <link rel="icon" href="images/favicon.png"/>
-<title>软件中心 - DDNSTO 内网穿透</title>
+<title>软件中心 - DDNSTO内网穿透</title>
 <link rel="stylesheet" type="text/css" href="index_style.css"/> 
 <link rel="stylesheet" type="text/css" href="form_style.css"/>
 <link rel="stylesheet" type="text/css" href="css/element.css">
@@ -390,11 +390,8 @@ function reload_Soft_Center(){
                                         </div>
                                         <div style="margin-left:5px;margin-top:10px;margin-bottom:10px"><img src="/images/New_ui/export/line_export.png"></div>
                                         <div class="SimpleNote">
-                                            <li>ddnsto内网穿透是koolshare小宝开发的，支持http2的快速穿透。</li></br>
+                                            <li>ddnsto内网穿透是koolshare小宝开发的，支持http2的快速穿透。</li>
                                             <li><i>很抱歉：为了提升安全性，从此版本开始更换为Token方式认证，原有用户名密码方式将禁用，请重新设置您的插件。</i></li></br>
-                                            <li><i>1、</i>你需要先到【<a id="gfw_number" href="https://ddns.to" target="_blank"><i>https://ddns.to</i></a>】注册帐号（已有帐号的跳过此步）。</li>
-                                            <li><i>2、</i>登录【<a id="gfw_number" href="https://ddns.to" target="_blank"><i>https://ddns.to</i></a>】获取用于连接的Token填入到插件中，启用插件并提交。</li>
-                                            <li><i>3、</i>再登录【<a id="gfw_number" href="https://ddns.to" target="_blank"><i>https://ddns.to</i></a>】设置穿透。</li>
                                         </div>
                                         <table width="100%" border="1" align="center" cellpadding="4" cellspacing="0" bordercolor="#6b8fa3" class="FormTable">
                                             <thead>
@@ -447,8 +444,7 @@ function reload_Soft_Center(){
                                         <div style="margin-left:5px;margin-top:10px;margin-bottom:10px"><img src="/images/New_ui/export/line_export.png"></div>
                                         <div id="NoteBox" style="display:none">
                                             <li> ddnsto内网穿透目前处于测试阶段，仅提供给koolshare固件用户使用，提供路由界面的穿透，请勿用于反动、不健康等用途；</li>
-                                            <li> 例如局域网ip是192.168.2.1，需要用 <i>https://xiaobao.ddns.to/</i> 作为ddns域名，则设置域名前缀为 <i>xiaobao</i>，主机地址为 <i>http://192.168.2.1</i>；</li>
-                                            <li> 远程命令建议安装并使用<a href="/#Module_shellinabox.asp" target="_blank"> shellinabox </a>插件，并设置<i> xiaobao-cmd </i>为二级域名，并添加 <i>http://192.168.2.1:4200</i> 目标主机地址。</li>
+                                            <li> 穿透教程：<a id="gfw_number" href="http://koolshare.cn/thread-116500-1-1.html" target="_blank"><i>DDNSTO内网穿透使用教程</i></a></li>
                                         </div>
                                     </td>
                                 </tr>
