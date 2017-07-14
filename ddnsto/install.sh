@@ -2,7 +2,7 @@
 
 MODULE=ddnsto
 title="DDNSTO内网穿透"
-VERSION="1.6"
+VERSION="1.7"
 cd /
 rm -rf /koolshare/init.d/S70ddnsto.sh
 cp -rf /tmp/$MODULE/bin/* /koolshare/bin/
